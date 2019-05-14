@@ -1,0 +1,31 @@
+{
+  "name": "eat_da_burger",
+  "version": "0.0.1",
+  "description": "a restaurant app that lets user input the names of the burgers they'd like to eat. When a user submits a burgers' name it will display on the page, with a devour button. Once the button is clicked it will move to the right side of the page. The app will store every burger in the database regardless if it is devoured or not.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/historybro/burger.git"
+  },
+  "keywords": [
+    "coding",
+    "bootcamp",
+    "burger"
+  ],
+  "author": "GSMIV",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/historybro/burger/issues"
+  },
+  "homepage": "https://github.com/historybro/burger#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2",
+    "mysql": "^2.17.1",
+    "sequelize": "^5.8.6"
+  }
+}
