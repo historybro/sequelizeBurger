@@ -1,50 +1,44 @@
-var express = require("express");
-var router = express.Router();
-var burger = require("../models/burger");
+var db = require("../models");
 
-router.get("/", function(req, res){
-    burger.all(function(data){
-        var hbsObject = {
-            burger: data
-        };
-        console.log(hbsObject);
-        res.render("index", hbsObject);
+module.exports = function (app) {
+    app.get("/", function (req, res) {
+        db.Burger.findAll({}).then(function (results) {
+            var obj = {
+                burger: results
+            };
+            res.render("index", obj);
+        });
     });
-});
 
-router.post("/api/burgers", function(req, res){
-    burger.create([
-        "burger_name"
-    ],[
-        req.body.burger_name
-    ], function (result){
-        res.json({id: result.insertId});
+    app.post("/api/burgers", function (req, res) {
+        db.Burger.create(req.body).then(function (results) {
+            res.redirect("/");
+        });
     });
-});
 
-router.put("/api/burgers/:id", function(req, res){
-    var condition = "id = "+req.params.id;
-    console.log("condition "+ condition);
-    burger.update({
-        devoured: true
-    }, condition, function(result){
-        if (result.changedRows == 0){
-            return res.status(400).end();
-        } else {
-            res.status(200).end();
-        }
+    app.put("/api/burgers/:id", function (req, res) {
+        db.Burger.update({
+            devoured: req.body.devoured
+        }, {
+                where: {
+                    id: req.body.id
+                }
+            }).then(function (results) {
+                res.redirect("/");
+            });
     });
-});
 
-router.delete("/api/burgers/:id", function (req, res) {
-    var condition = "id = " + req.params.id;
-    burger.delete(condition, function (result) {
-        if (result.affectedRows == 0) {
-            return res.status(404).end();
-        } else {
-            res.status(200).end();
-        }
+    app.delete("/api/burgers/:id", function (req, res) {
+        db.Burger.destroy({
+            where: {
+                id: req.params.id
+            }
+        }).then(function (results) {
+            var obj = {
+                burger: results
+            };
+            res.render("index", obj);
+        });
     });
-});
 
-module.exports = router;
+}
