@@ -21,10 +21,10 @@ module.exports = function (app) {
             devoured: req.body.devoured
         }, {
                 where: {
-                    id: req.body.id
+                    id: req.params.id
                 }
             }).then(function (results) {
-                res.redirect("/");
+                res.json("results");
             });
     });
 

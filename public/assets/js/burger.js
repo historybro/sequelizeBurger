@@ -1,11 +1,14 @@
 $(function() {
     $(".change-dev").on("click", function(event) {
       var id = $(this).data("id");
-      var newDev = $(this).data("newDev");
+      console.log(id);
+      var newDev = 1;
+      console.log(newDev);
   
       var newDevState = {
         devoured: newDev
       };
+      console.log(newDevState);
 
       $.ajax("/api/burgers/" + id, {
         type: "PUT",
